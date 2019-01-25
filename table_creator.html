@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+    	$(document).ready(function(){
+          $('.btn-primary').click(function(){
+            var $r = parseInt($('#a1').val());
+            var $k = parseInt($('#b1').val());
+
+            var $html = '';
+            $html = $html + '<table class="table table-bordered">';
+            for (var i=0; i < $r; i++){
+            	$html = $html + '<tr>';
+
+            	for( var j=0; j < $k; j++){
+            		$html = $html + '<td>'+ (i+1) + '.' + (j+1) + '</td>';
+
+            	}
+            	$html = $html + '</tr>';
+            }
+            $html = $html + '</table>';
+            $('#table-container').html($html);
+          }); 
+                 $('.btn-danger').click(function(){
+                 	var $r = parseInt($('#a1').val());
+                    var $k = parseInt($('#b1').val());
+                    if(!isNaN($r)){
+                    	var $rows = $('tr');
+                    	$rows.eq($r - 1).remove(); 
+                    }
+                         if (!isNaN($k)){
+                         	var $cols = $('td');
+                         	for(var i = 0; i < $cols.length; i++){
+                         		var $text = $cols.eq(i).text();
+                         		$text = $text[$text.length - 1];
+                         		$text = parseInt($text);
+                         		if ($k == $text){
+                         			$cols.eq(i).remove();
+                         		}
+                         	}
+                         }
+                 });
+
+    	});
+    </script>
+</head>
+<body>
+
+	<div class="container">
+		<div class="row">
+			<div class="form-group">
+		      <label for="a1">ROWS</label>
+		      <input type="text" class="form-control" id="a1" placeholder="Rows">
+		    </div>
+			<div class="form-group">
+		      <label for="b1">COLUMNS</label>
+		      <input type="text" class="form-control" id="b1" placeholder="Columns">
+		    </div>
+		</div>
+	    <div class="form-group">
+	        <button type="button" class="btn btn-primary">Create</button>
+	        <button type="button" class="btn btn-danger">Delete</button>
+	    </div>
+		<div class="row" id="table-container">
+
+		</div>
+	</div>
+
+
+</body>
+</html>
